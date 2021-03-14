@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'de.fhkiel'
+version '1.0-Beta'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation "com.discord4j:discord4j-core:3.1.3"
+    implementation 'org.apache.logging.log4j:log4j-api:2.14.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.0'
+    implementation 'org.slf4j:slf4j-api:2.0.0-alpha1'
+    implementation 'org.slf4j:slf4j-nop:2.0.0-alpha1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.reflections:reflections:0.9.11'
+
+    testImplementation 'org.awaitility:awaitility:4.0.3'
+    testImplementation 'io.github.artsok:rerunner-jupiter:2.+'
+    testImplementation "org.mockito:mockito-inline:3.+"
+    testImplementation 'org.assertj:assertj-core:3.+'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClass = 'de.fhkiel.seg.Main'
+}
+

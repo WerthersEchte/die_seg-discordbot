@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration packages="de.fhkiel.seg.util" status="ERROR">
+    <!-- packages attribute is a comma-separated list of all the packages with custom log4j2 plugins.
+    Log4j2 will search these packages in the classpath for classes annotated with @Plugin-->
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="LogToFile" fileName="logs/app.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+        <DiscordAppender name="DiscordAppender"/>
+    </Appenders>
+    <Loggers>
+        <Logger name="de.fhkiel.seg.commands" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DiscordAppender"/>
+        </Logger>
+        <Logger name="de.fhkiel.seg.auction" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DiscordAppender"/>
+        </Logger>
+        <Logger name="de.fhkiel.seg.bot" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DiscordAppender"/>
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DiscordAppender"/>
+        </Root>
+        <!-- https://logging.apache.org/log4j/2.x/manual/architecture.html -->
+    </Loggers>
+</Configuration>

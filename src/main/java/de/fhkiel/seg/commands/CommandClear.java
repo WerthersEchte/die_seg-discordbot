@@ -1,0 +1,61 @@
+package de.fhkiel.seg.commands;
+
+import static de.fhkiel.seg.Configuration.cmdClear;
+import static de.fhkiel.seg.util.LoggerStore.logger;
+
+import de.fhkiel.seg.bot.ControlFacade;
+import discord4j.common.util.Snowflake;
+
+/**
+ * Command to clear all used channel. Usable by {@link UserType#ADMIN}
+ */
+public class CommandClear implements Command {
+
+  private ControlFacade control;
+
+  @Override
+  public void inject(ControlFacade control) {
+    this.control = control;
+  }
+
+  @Override
+  public String commandTag() {
+    return cmdClear();
+  }
+
+  @Override
+  public String usage() {
+    return "``" + commandTag() + "``\n"
+        + "Needed Role: ``" +  intendedUser() + "``\n"
+        + "Clears all messages except last from channels used by this bot";
+  }
+
+  @Override
+  public UserType intendedUser() {
+    return UserType.ADMIN;
+  }
+
+  @Override
+  public void process(String message, Snowflake sender) {
+    try {
+      logger().info("Clearing all channels");
+      control.getAllChannels().forEach(
+          snowflake -> control.getClient().getChannelById(snowflake).subscribe(
+              channel ->
+                  channel.getRestChannel().getData().subscribe(channelData ->
+                      channel.getRestChannel().bulkDelete(
+                          channel.getRestChannel()
+                              .getMessagesBefore(
+                                  Snowflake.of(channelData.lastMessageId().get().get()))
+                              .map(messageData -> Snowflake.of(messageData.id()))
+                      ).subscribe(logger()::info,
+                          e -> logger().error("Error deleting messages.", e))
+                  )
+          )
+      );
+      logger().info("Cleared all channels");
+    } catch (Exception exception) {
+      logger().error("Could not clear channels!", exception);
+    }
+  }
+}
