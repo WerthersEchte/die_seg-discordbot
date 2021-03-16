@@ -18,7 +18,7 @@
   "resStartAuction": "auction start %d %s",
   "resEndAuction": "auction closed",
   "resWonAuction": "auction won",
-  "resHigherBid": "auction bid %d %d <@%s>",
+  "resHigherBid": "auction bid %d <@%s> %d",
   "resRegistered": "registered",
   "resMerchantInfo": "info traders"
 }

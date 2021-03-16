@@ -63,7 +63,7 @@ public class CommandAuction implements Command {
           if (auction.isPresent() && auction.get().newBid(bid, sender)) {
             logger().info("@{} is new highest bidder with {}", sender, bid);
             control.sendAuctionMessage(
-                String.format(resHigherBid(), auctionId, bid, sender.asString()));
+                String.format(resHigherBid(), auctionId, sender.asString(), bid));
           } else {
             logger().info("Auction does not exist");
           }

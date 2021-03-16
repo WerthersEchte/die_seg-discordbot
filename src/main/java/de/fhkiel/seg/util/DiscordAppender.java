@@ -40,7 +40,7 @@ public class DiscordAppender extends AbstractAppender {
 
   @Override
   public void append(LogEvent event) {
-    if (control.isStarted()) {
+    if (control != null && control.isStarted()) {
       control.sendLogMessage("[" + event.getLevel() + "] " + event.getLoggerName() + ": "
           + event.getMessage().getFormattedMessage());
     }

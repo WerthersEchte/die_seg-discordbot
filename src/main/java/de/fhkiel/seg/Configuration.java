@@ -36,7 +36,7 @@ public class Configuration {
   private String resStartAuction = "auction start %d %s";
   private String resEndAuction = "auction closed";
   private String resWonAuction = "auction won";
-  private String resHigherBid = "auction bid %d %d <@%s>";
+  private String resHigherBid = "auction bid %d <@%s> %d";
   private String resRegistered = "registered";
   private String resMerchantInfo = "info traders";
 
