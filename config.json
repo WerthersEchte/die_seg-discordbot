@@ -15,10 +15,10 @@
   "cmdClear": "clear",
   "cmdHelp": "help",
   "cmdStatistics": "stats",
-  "resStartAuction": "auction start %d %s",
+  "resStartAuction": "auction start",
   "resEndAuction": "auction closed",
   "resWonAuction": "auction won",
-  "resHigherBid": "auction bid %d <@%s> %d",
+  "resHigherBid": "auction bid",
   "resRegistered": "registered",
   "resMerchantInfo": "info traders"
 }

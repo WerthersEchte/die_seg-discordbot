@@ -34,7 +34,7 @@ public class CommandRegister implements Command {
 
   @Override
   public String usage() {
-    return "``" + commandTag() + "``/n"
+    return "``" + commandTag() + "`\n"
         + "Needed Role: ``" + intendedUser() + "``\n"
         + "Registers User as a ``trader``\n"
         + "Returns with '" + prefix() + " <id> <starting points>'";

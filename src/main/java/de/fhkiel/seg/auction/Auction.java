@@ -1,9 +1,6 @@
 package de.fhkiel.seg.auction;
 
-import static de.fhkiel.seg.Configuration.auctionTime;
-import static de.fhkiel.seg.Configuration.resEndAuction;
-import static de.fhkiel.seg.Configuration.resStartAuction;
-import static de.fhkiel.seg.Configuration.resWonAuction;
+import static de.fhkiel.seg.Configuration.*;
 import static de.fhkiel.seg.util.LoggerStore.logger;
 
 import discord4j.common.util.Snowflake;
@@ -60,12 +57,12 @@ public class Auction {
   private void endAuction() {
     if (bidder != null) {
       listeners.forEach(auctionListener -> auctionListener.auctionInfo(
-          String.format("%s %d <@%s> %d", resWonAuction(), id, bidder.asString(), bid)));
+          String.format("%s %s %d <@%s> %d", prefix(), resWonAuction(), id, bidder.asString(), bid)));
       TraderRegister.getInstance().getMerchant(bidder).ifPresent(value ->
           value.addSuccessfullBid(id, letter, bid));
     }
     listeners.forEach(auctionListener -> auctionListener
-        .auctionInfo(String.format("%s %d", resEndAuction(), id)));
+        .auctionInfo(String.format("%s %s %d", prefix(), resEndAuction(), id)));
   }
 
   private void startTimer() {
@@ -130,7 +127,7 @@ public class Auction {
    */
   public void start() {
     listeners.forEach(auctionListener -> auctionListener
-        .auctionInfo(String.format(resStartAuction(), this.id, letter)));
+        .auctionInfo(String.format("%s %s %d %s %d", prefix(), resStartAuction(), this.id, letter, this.bid)));
     logger().info("Starting Auction [{}] - {} [{}]", this.id, letter, this.bid);
 
     started = true;

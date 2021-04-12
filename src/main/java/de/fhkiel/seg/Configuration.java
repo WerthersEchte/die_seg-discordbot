@@ -33,10 +33,10 @@ public class Configuration {
   private String cmdClear = "clear";
   private String cmdHelp = "help";
   private String cmdStatistics = "stats";
-  private String resStartAuction = "auction start %d %s";
+  private String resStartAuction = "auction start";
   private String resEndAuction = "auction closed";
   private String resWonAuction = "auction won";
-  private String resHigherBid = "auction bid %d <@%s> %d";
+  private String resHigherBid = "auction bid";
   private String resRegistered = "registered";
   private String resMerchantInfo = "info traders";
 

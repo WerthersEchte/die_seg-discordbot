@@ -30,7 +30,7 @@ public class CommandStatistics implements Command {
 
   @Override
   public String usage() {
-    return "``" + commandTag() + "``/n"
+    return "``" + commandTag() + "``\n"
         + "Needed Role: ``" + intendedUser() + "``\n"
         + "Shows detailed statistics from trades and traders";
   }

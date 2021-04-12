@@ -1,8 +1,6 @@
 package de.fhkiel.seg.commands;
 
-import static de.fhkiel.seg.Configuration.actionChannelName;
-import static de.fhkiel.seg.Configuration.cmdAuction;
-import static de.fhkiel.seg.Configuration.resHigherBid;
+import static de.fhkiel.seg.Configuration.*;
 import static de.fhkiel.seg.util.LoggerStore.logger;
 
 import de.fhkiel.seg.auction.Auction;
@@ -31,9 +29,9 @@ public class CommandAuction implements Command {
 
   @Override
   public String usage() {
-    return "``" + commandTag() + " <id> <points> ``\n"
+    return "``" + commandTag()  + " bid <id> <points> ``\n"
         + "Needed Role: ``" + intendedUser() + "``\n"
-        + "Places a Bid with value ``<points>`` on the auction with ``<ID>``";
+        + "Places a bid with value ``<points>`` on the auction with ``<ID>``";
   }
 
   @Override
@@ -63,7 +61,7 @@ public class CommandAuction implements Command {
           if (auction.isPresent() && auction.get().newBid(bid, sender)) {
             logger().info("@{} is new highest bidder with {}", sender, bid);
             control.sendAuctionMessage(
-                String.format(resHigherBid(), auctionId, sender.asString(), bid));
+                String.format("%s %s %d <@%s> %d", prefix(), resHigherBid(), auctionId, sender.asString(), bid));
           } else {
             logger().info("Auction does not exist");
           }
