@@ -37,7 +37,6 @@ public class DiscordAppender extends AbstractAppender {
     return new DiscordAppender(name, filter);
   }
 
-
   @Override
   public void append(LogEvent event) {
     if (control != null && control.isStarted()) {

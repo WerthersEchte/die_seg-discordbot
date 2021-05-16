@@ -70,6 +70,5 @@ public class CommandInfo implements Command {
       logger().error("Something in Info went wrong", e);
     }
 
-
   }
 }

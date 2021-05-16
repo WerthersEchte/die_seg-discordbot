@@ -1,19 +1,20 @@
 package de.fhkiel.seg.auction;
 
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Auction register class representing a fleeting database. Holds all auctions. Singleton.
  */
 public class AuctionRegister {
+
   private static int nextAuctionId = 1;
   private static AuctionRegister auctionRegister = null;
   /**
    * The Auction register set.
    */
-  Set<Auction> auctionRegisterSet = new HashSet<>();
+  Set<Auction> auctionRegisterSet = new CopyOnWriteArraySet<>();
 
   private AuctionRegister() {
   }
@@ -23,7 +24,7 @@ public class AuctionRegister {
    *
    * @return the instance
    */
-  public static AuctionRegister getInstance() {
+  public static synchronized AuctionRegister getInstance() {
     if (auctionRegister == null) {
       auctionRegister = new AuctionRegister();
     }
@@ -49,7 +50,7 @@ public class AuctionRegister {
   }
 
   /**
-   * Find the auction with ther id. Returns an optional.
+   * Find the auction with the id. Returns an optional.
    *
    * @param id the id of the auction
    * @return the optional containing the found auction. if not found contains null.

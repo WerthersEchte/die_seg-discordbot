@@ -36,7 +36,7 @@ class TraderTest {
     assertThat(traderUnderTest.getDiscordId()).isEqualTo(snowflake);
     assertThat(traderUnderTest.getPoints()).isEqualTo(STARTING_POINTS);
 
-    assertThat(traderUnderTest.getSuccessfullBids()).isEmpty();
+    assertThat(traderUnderTest.getSuccessfulBids()).isEmpty();
   }
 
   @Test
@@ -49,9 +49,9 @@ class TraderTest {
     final int firstCost = 10;
 
     traderUnderTest.addSuccessfullBid(firstId, firstLetter, firstCost);
-    assertThat(traderUnderTest.getSuccessfullBids()).hasSize(1);
+    assertThat(traderUnderTest.getSuccessfulBids()).hasSize(1);
     assertThat(traderUnderTest
-        .getSuccessfullBids().stream().filter(successfullBid -> successfullBid.id == firstId && successfullBid.letter == firstLetter && successfullBid.cost == firstCost).count())
+        .getSuccessfulBids().stream().filter(successfullBid -> successfullBid.id == firstId && successfullBid.letter == firstLetter && successfullBid.cost == firstCost).count())
         .isEqualTo(1);
 
     final int secondId = 7;
@@ -59,12 +59,12 @@ class TraderTest {
     final int secondCost = 7;
 
     traderUnderTest.addSuccessfullBid(secondId, secondLetter, secondCost);
-    assertThat(traderUnderTest.getSuccessfullBids()).hasSize(2);
+    assertThat(traderUnderTest.getSuccessfulBids()).hasSize(2);
     assertThat(traderUnderTest
-        .getSuccessfullBids().stream().filter(successfullBid -> successfullBid.id == firstId && successfullBid.letter == firstLetter && successfullBid.cost == firstCost).count())
+        .getSuccessfulBids().stream().filter(successfullBid -> successfullBid.id == firstId && successfullBid.letter == firstLetter && successfullBid.cost == firstCost).count())
         .isEqualTo(1);
     assertThat(traderUnderTest
-        .getSuccessfullBids().stream().filter(successfullBid -> successfullBid.id == secondId && successfullBid.letter == secondLetter && successfullBid.cost == secondCost).count())
+        .getSuccessfulBids().stream().filter(successfullBid -> successfullBid.id == secondId && successfullBid.letter == secondLetter && successfullBid.cost == secondCost).count())
         .isEqualTo(1);
   }
 }

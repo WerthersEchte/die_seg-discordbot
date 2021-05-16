@@ -1,6 +1,10 @@
 package de.fhkiel.seg.auction;
 
-import static de.fhkiel.seg.Configuration.*;
+import static de.fhkiel.seg.Configuration.auctionTime;
+import static de.fhkiel.seg.Configuration.prefix;
+import static de.fhkiel.seg.Configuration.resEndAuction;
+import static de.fhkiel.seg.Configuration.resStartAuction;
+import static de.fhkiel.seg.Configuration.resWonAuction;
 import static de.fhkiel.seg.util.LoggerStore.logger;
 
 import discord4j.common.util.Snowflake;
@@ -12,12 +16,15 @@ import java.util.TimerTask;
  * Auction class to coordinate an auction.
  */
 public class Auction {
+
   private final List<AuctionListener> listeners;
-  private int id;
-  private int bid;
-  private String letter;
-  private Snowflake bidder;
+  private final int id;
+  private volatile int bid;
+  private final String letter;
+  private volatile Snowflake bidder;
   private Timer timer;
+  private volatile boolean running = false;
+  private volatile boolean started = false;
 
   /**
    * Instantiates a new Auction.
@@ -28,7 +35,6 @@ public class Auction {
    */
   public Auction(int startingBid, String letter, List<AuctionListener> listeners) {
     this.listeners = listeners;
-
     id = AuctionRegister.getNextAuctionId();
     bid = startingBid;
     this.letter = letter;
@@ -42,7 +48,7 @@ public class Auction {
    * @param bidder the bidder
    * @return the boolean representing the acceptance of the bid
    */
-  public boolean newBid(int newBid, Snowflake bidder) {
+  public synchronized boolean newBid(int newBid, Snowflake bidder) {
     if (running() && this.bid < newBid) {
       this.bid = newBid;
       this.bidder = bidder;
@@ -54,10 +60,11 @@ public class Auction {
     }
   }
 
-  private void endAuction() {
+  private synchronized void endAuction() {
     if (bidder != null) {
       listeners.forEach(auctionListener -> auctionListener.auctionInfo(
-          String.format("%s %s %d <@%s> %d", prefix(), resWonAuction(), id, bidder.asString(), bid)));
+          String
+              .format("%s %s %d <@%s> %d", prefix(), resWonAuction(), id, bidder.asString(), bid)));
       TraderRegister.getInstance().getMerchant(bidder).ifPresent(value ->
           value.addSuccessfullBid(id, letter, bid));
     }
@@ -88,12 +95,8 @@ public class Auction {
   public void cancelAuction() {
     timer.cancel();
     timer.purge();
-
     running = false;
   }
-
-  private volatile boolean running = false;
-  private volatile boolean started = false;
 
   /**
    * Is the auction running.
@@ -127,12 +130,11 @@ public class Auction {
    */
   public void start() {
     listeners.forEach(auctionListener -> auctionListener
-        .auctionInfo(String.format("%s %s %d %s %d", prefix(), resStartAuction(), this.id, letter, this.bid)));
+        .auctionInfo(String
+            .format("%s %s %d %s %d", prefix(), resStartAuction(), this.id, letter, this.bid)));
     logger().info("Starting Auction [{}] - {} [{}]", this.id, letter, this.bid);
-
     started = true;
     running = true;
-
     startTimer();
   }
 

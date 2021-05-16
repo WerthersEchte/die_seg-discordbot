@@ -21,12 +21,11 @@ public class Bot implements AuctionListener {
 
   private GatewayDiscordClient client;
   private boolean isStarted = false;
-
   private Auctioneer auctioneer;
   private ControlFacade control;
 
   /**
-   * Start the bot. Connects to discord and when successfull, start all the other services.
+   * Start the bot. Connects to discord and when successful, start all the other services.
    */
   public void start() {
     logger().debug("Connecting to server");
@@ -34,39 +33,33 @@ public class Bot implements AuctionListener {
         .build()
         .login()
         .block();
-
     if (client != null) {
       ChannelHandler channelHandler = new ChannelHandler(this);
       MessageHandler messageHandler = new MessageHandler(this, channelHandler);
       control = new ControlFacade(this, messageHandler, channelHandler);
-
       DiscordAppender.inject(control);
-
-      logger().debug("Setting messagehandler");
+      logger().debug("Setting messageHandler");
       setMessageHandler(messageHandler);
-
       logger().debug("Bot fully started");
       isStarted = true;
-
       control.sendInfoMessage("Bot started\n"
           + "For help use command " + Command.commandBuilder(new CommandHelp().commandTag()));
-
       auctioneer = new Auctioneer(new LetterGenerator());
       auctioneer.register(this);
       auctioneer.startAuctions();
-
       client.onDisconnect().block();
     }
   }
 
   /**
-   * Sets a message handler to handle incomming messages.
+   * Sets a message handler to handle incoming messages.
    *
    * @param messageHandler the message handler to handle messages
    */
   public void setMessageHandler(MessageHandler messageHandler) {
     client.getEventDispatcher().on(MessageCreateEvent.class)
-        .subscribe(message -> messageHandler.handleMessage(message.getMessage()));
+        .subscribe(message -> messageHandler.handleMessage(message.getMessage()),
+            throwable -> logger().error("Error handling message!", throwable));
   }
 
   /**
@@ -79,7 +72,7 @@ public class Bot implements AuctionListener {
   }
 
   /**
-   * Gets client interface from dicord4j to discord.
+   * Gets client interface from discord4j to discord.
    *
    * @return the client
    */

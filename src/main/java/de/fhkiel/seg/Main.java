@@ -6,7 +6,7 @@ import static de.fhkiel.seg.util.LoggerStore.logger;
 import de.fhkiel.seg.bot.Bot;
 
 /**
- * The starterclass. Only a carrier for the main function.
+ * The starterClass. Only a carrier for the main function.
  */
 public class Main {
 

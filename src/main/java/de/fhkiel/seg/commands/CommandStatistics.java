@@ -51,9 +51,9 @@ public class CommandStatistics implements Command {
     statisticText.append("Statistics:\n");
     Map<String, Integer> soldLetters = new HashMap<>();
     TraderRegister.getInstance().getMerchants()
-        .forEach(merchant -> merchant.getSuccessfullBids()
-            .forEach(successfullBid -> soldLetters.put(successfullBid.letter,
-                soldLetters.getOrDefault(successfullBid.letter, 0) + 1)));
+        .forEach(merchant -> merchant.getSuccessfulBids()
+            .forEach(successfulBid -> soldLetters.put(successfulBid.letter,
+                soldLetters.getOrDefault(successfulBid.letter, 0) + 1)));
     statisticText.append("Number of sold Letters: ")
         .append(soldLetters.values().stream().mapToInt(Integer::intValue).sum()).append(" ");
 
@@ -67,21 +67,21 @@ public class CommandStatistics implements Command {
             .mapToInt(Integer::intValue).sum()).append("\n");
     statisticText.append("Number of used points: ").append(
         TraderRegister.getInstance().getMerchants().stream().flatMap(
-            merchant -> merchant.getSuccessfullBids().stream()
-                .map(successfullBid -> successfullBid.cost)).mapToInt(Integer::intValue).sum())
+            merchant -> merchant.getSuccessfulBids().stream()
+                .map(successfulBid -> successfulBid.cost)).mapToInt(Integer::intValue).sum())
         .append("\n");
     statisticText.append("\n\nTraders:\n");
 
     for (Trader trader : TraderRegister.getInstance().getMerchants()) {
       statisticText.append("<@").append(trader.getDiscordId().asString()).append("> ");
       statisticText.append(
-          trader.getSuccessfullBids().stream().mapToInt(successfullBid -> successfullBid.cost)
+          trader.getSuccessfulBids().stream().mapToInt(successfulBid -> successfulBid.cost)
               .sum()).append("/").append(trader.getPoints()).append(" ");
 
       final StringJoiner bidJoiner = new StringJoiner(", ", "[", "]\n");
-      trader.getSuccessfullBids()
+      trader.getSuccessfulBids()
           .forEach(
-              successfullBid -> bidJoiner.add(successfullBid.letter + "->" + successfullBid.cost));
+              successfulBid -> bidJoiner.add(successfulBid.letter + "->" + successfulBid.cost));
       statisticText.append(bidJoiner.toString());
     }
 

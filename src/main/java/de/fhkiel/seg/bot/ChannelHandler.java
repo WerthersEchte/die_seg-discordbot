@@ -29,11 +29,9 @@ public class ChannelHandler {
    */
   public ChannelHandler(Bot bot) {
     this.bot = bot;
-
     channels.put(Configuration.actionChannelName(), new ArrayList<>());
     channels.put(Configuration.infoChannelName(), new ArrayList<>());
     channels.put(Configuration.logChannelName(), new ArrayList<>());
-
     findChannels();
   }
 

@@ -53,7 +53,7 @@ public class Factory {
   /**
    * Find the command fitting to the message.
    *
-   * @param message the incomming message with an command
+   * @param message the incoming message with an command
    * @return the command or null
    */
   public Command findCommand(String message) {

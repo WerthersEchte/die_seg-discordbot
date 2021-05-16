@@ -13,13 +13,12 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * Message handler class faciliating the sending of messages to channels.
+ * Message handler class facilitating the sending of messages to channels.
  */
 public class MessageHandler {
 
   private final Bot bot;
   private final ChannelHandler channelHandler;
-
   private final Factory commandFactory;
 
   /**
@@ -32,7 +31,6 @@ public class MessageHandler {
   public MessageHandler(Bot bot, ChannelHandler channelHandler, Factory commandFactory) {
     this.bot = bot;
     this.channelHandler = channelHandler;
-
     this.commandFactory = commandFactory;
   }
 
@@ -45,14 +43,13 @@ public class MessageHandler {
   public MessageHandler(Bot bot, ChannelHandler channelHandler) {
     this.bot = bot;
     this.channelHandler = channelHandler;
-
     this.commandFactory = new Factory(new ControlFacade(bot, this, channelHandler));
   }
 
   /**
-   * Handles an incomming message.
+   * Handles an incoming message.
    *
-   * @param message the incomming message
+   * @param message the incoming message
    */
   public void handleMessage(Message message) {
     if (messageAuthorEqualsSelf(message)) {
@@ -63,9 +60,8 @@ public class MessageHandler {
         && (command.getAllowedChannel().equals(Command.ALL_CHANNEL)
         && channelHandler.getAllChannels().contains(message.getChannelId())
         || channelHandler.getChannels().get(command.getAllowedChannel())
-            .contains(message.getChannelId()))) {
+        .contains(message.getChannelId()))) {
       logger().debug("Message of type {} Message: {}", command, message);
-
       checkAllowance(message, command);
     }
   }
@@ -114,7 +110,8 @@ public class MessageHandler {
    */
   public void sendMessage(Snowflake channelId, String message) {
     channelHandler.getChannelBySnowflake(channelId)
-        .subscribe(value -> value.getRestChannel().createMessage(message).subscribe());
+        .subscribe(value -> value.getRestChannel().createMessage(message)
+            .subscribe(null, throwable -> logger().error("Error handling message!", throwable)));
   }
 
   /**

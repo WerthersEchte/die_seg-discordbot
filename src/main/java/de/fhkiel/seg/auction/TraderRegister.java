@@ -1,16 +1,17 @@
 package de.fhkiel.seg.auction;
 
 import discord4j.common.util.Snowflake;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Trader register  class representing a fleeting database. Holds all known traders. Singleton.
  */
 public class TraderRegister {
+
   private static TraderRegister traderRegister = null;
-  private Set<Trader> traderRegisterSet = new HashSet<>();
+  private Set<Trader> traderRegisterSet = new CopyOnWriteArraySet<>();
 
   private TraderRegister() {
   }
@@ -20,7 +21,7 @@ public class TraderRegister {
    *
    * @return the instance
    */
-  public static TraderRegister getInstance() {
+  public static synchronized TraderRegister getInstance() {
     if (traderRegister == null) {
       traderRegister = new TraderRegister();
     }

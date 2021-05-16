@@ -6,9 +6,10 @@ import de.fhkiel.seg.bot.ControlFacade;
 import discord4j.common.util.Snowflake;
 
 /**
- * The interface Command to handle incomming commands.
+ * The interface Command to handle incmming commands.
  */
 public interface Command {
+
   /**
    * The constant ALL_CHANNEL to represent all channels.
    */

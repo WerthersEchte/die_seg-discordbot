@@ -26,7 +26,7 @@ public class CommandClear implements Command {
   @Override
   public String usage() {
     return "``" + commandTag() + "``\n"
-        + "Needed Role: ``" +  intendedUser() + "``\n"
+        + "Needed Role: ``" + intendedUser() + "``\n"
         + "Clears all messages except last from channels used by this bot";
   }
 
@@ -42,15 +42,21 @@ public class CommandClear implements Command {
       control.getAllChannels().forEach(
           snowflake -> control.getClient().getChannelById(snowflake).subscribe(
               channel ->
-                  channel.getRestChannel().getData().subscribe(channelData ->
-                      channel.getRestChannel().bulkDelete(
-                          channel.getRestChannel()
-                              .getMessagesBefore(
-                                  Snowflake.of(channelData.lastMessageId().get().get()))
-                              .map(messageData -> Snowflake.of(messageData.id()))
-                      ).subscribe(logger()::info,
-                          e -> logger().error("Error deleting messages.", e))
-                  )
+                  channel.getRestChannel().getData().subscribe(channelData -> {
+                        if (!channelData.lastMessageId().isAbsent()) {
+                          channelData.lastMessageId().get()
+                              .ifPresent(s -> channel.getRestChannel().bulkDelete(
+                                  channel.getRestChannel()
+                                      .getMessagesBefore(
+                                          Snowflake.of(s))
+                                      .map(messageData -> Snowflake.of(messageData.id()))
+                              ).subscribe(logger()::info,
+                                  throwable -> logger().error("Error deleting messages.", throwable)));
+                        }
+                      },
+                      throwable -> logger().error("Could not get channel data!", throwable)
+                  ),
+              throwable -> logger().error("Could not get channel!", throwable)
           )
       );
       logger().info("Cleared all channels");

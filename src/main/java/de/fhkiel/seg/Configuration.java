@@ -12,7 +12,7 @@ import java.util.StringJoiner;
 
 /**
  * The Configuration class.
- * Stores all changable parameters. Can be set through the config.json file
+ * Stores all changeable parameters. Can be set through the config.json file
  */
 public class Configuration {
 
@@ -44,7 +44,7 @@ public class Configuration {
   }
 
   /**
-   * Load configuration from the file secified in the parameter.
+   * Load configuration from the file specified in the parameter.
    *
    * @param configFile the config file
    */
@@ -65,7 +65,7 @@ public class Configuration {
   }
 
   /**
-   * Export configuration to  the file secified in the parameter.
+   * Export configuration to  the file specified in the parameter.
    *
    * @param configFile the config file to write
    */
@@ -160,7 +160,7 @@ public class Configuration {
   }
 
   /**
-   * The command used to intercat with an auction.
+   * The command used to interact with an auction.
    *
    * @return the string
    */
@@ -250,7 +250,7 @@ public class Configuration {
   }
 
   /**
-   * Response when recieving a higher bid.
+   * Response when receiving a higher bid.
    *
    * @return the string
    */
@@ -259,7 +259,7 @@ public class Configuration {
   }
 
   /**
-   * Auction time in millseconds.
+   * Auction time in milliseconds.
    *
    * @return the long
    */
@@ -277,7 +277,7 @@ public class Configuration {
   }
 
   /**
-   * Respose for merchant info.
+   * Response for merchant info.
    *
    * @return the string
    */

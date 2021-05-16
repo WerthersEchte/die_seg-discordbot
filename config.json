@@ -1,24 +1,4 @@
 {
-  "token": "",
-  "admins": ["WerthersEchte#8239"],
-  "botName": "DIE SEG",
-  "startingPoints": 1000,
-  "auctionTime": 5000,
-  "auctionChannelName": "auction",
-  "infoChannelName": "info",
-  "logChannelName": "log",
-  "cmdPrefix": "!SEG",
-  "cmdAuction": "auction",
-  "cmdInfo": "info",
-  "cmdRegister": "register",
-  "cmdKill": "kill",
-  "cmdClear": "clear",
-  "cmdHelp": "help",
-  "cmdStatistics": "stats",
-  "resStartAuction": "auction start",
-  "resEndAuction": "auction closed",
-  "resWonAuction": "auction won",
-  "resHigherBid": "auction bid",
-  "resRegistered": "registered",
-  "resMerchantInfo": "info traders"
+  "token": "ENTER YOUR TOKEN HERE",
+  "admins": ["WerthersEchte#8239"]
 }

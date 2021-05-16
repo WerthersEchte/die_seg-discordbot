@@ -6,7 +6,7 @@ import discord4j.core.GatewayDiscordClient;
 import java.util.List;
 
 /**
- * A facade to facilliate the communication with the bot and its handlers.
+ * A facade to facilitate the communication with the bot and its handlers.
  */
 public class ControlFacade {
 

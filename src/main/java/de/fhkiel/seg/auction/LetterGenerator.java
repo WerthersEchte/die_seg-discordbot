@@ -3,10 +3,15 @@ package de.fhkiel.seg.auction;
 import java.util.Random;
 
 /**
- * Letter generator class to gernerte letters to auction.
+ * Letter generator class to generate letters to auction.
  * Uses no special distribution
  */
 public class LetterGenerator {
+
+  private String currentLetter = "";
+  private String[] availableLetters = new String[]
+    {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+      "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
   /**
    * Instantiates a new Letter generator.
@@ -14,12 +19,6 @@ public class LetterGenerator {
   public LetterGenerator() {
     currentLetter = getRandLetter();
   }
-
-  private String currentLetter = "";
-
-  private String[] availableLetters = new String[]
-    {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
-      "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
   /**
    * Gets a rand letter.

@@ -12,19 +12,8 @@ public class Auctioneer implements Runnable {
 
   private Auction currentAuction;
   private boolean running = true;
-
   private LetterGenerator generator;
-
   private List<AuctionListener> listeners = new ArrayList<>();
-
-  /**
-   * Register a listener for auctionchanges.
-   *
-   * @param listener the listener
-   */
-  public void register(AuctionListener listener) {
-    listeners.add(listener);
-  }
 
   /**
    * Instantiates a new Auctioneer.
@@ -33,6 +22,15 @@ public class Auctioneer implements Runnable {
    */
   public Auctioneer(LetterGenerator generator) {
     this.generator = generator;
+  }
+
+  /**
+   * Register a listener for auction changes.
+   *
+   * @param listener the listener
+   */
+  public void register(AuctionListener listener) {
+    listeners.add(listener);
   }
 
   /**
@@ -51,7 +49,6 @@ public class Auctioneer implements Runnable {
   }
 
   @Override
-
   public void run() {
     listeners.forEach(auctionListener -> auctionListener.auctionInfo("Starting auctions"));
     while (running) {
