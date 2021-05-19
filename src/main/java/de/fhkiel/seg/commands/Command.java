@@ -6,7 +6,7 @@ import de.fhkiel.seg.bot.ControlFacade;
 import discord4j.common.util.Snowflake;
 
 /**
- * The interface Command to handle incmming commands.
+ * The interface Command to handle incoming commands.
  */
 public interface Command {
 

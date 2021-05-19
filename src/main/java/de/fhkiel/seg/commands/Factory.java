@@ -12,7 +12,7 @@ import java.util.Set;
 import org.reflections.Reflections;
 
 /**
- * Factory class to store all possible commands and resolve incomming request by finding
+ * Factory class to store all possible commands and resolve incoming request by finding
  * and instantiation of the fitting command.
  */
 public class Factory {

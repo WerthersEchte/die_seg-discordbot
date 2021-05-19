@@ -62,37 +62,39 @@ public class MessageHandler {
         || channelHandler.getChannels().get(command.getAllowedChannel())
         .contains(message.getChannelId()))) {
       logger().debug("Message of type {} Message: {}", command, message);
-      checkAllowance(message, command);
+
+      if(AuthorAllowedToUseCommand(message, command)){
+        Optional<User> author = message.getAuthor();
+        command.process(message.getContent(),
+                author.map(User::getId).orElseGet(() -> Snowflake.of(0)));
+      };
     }
   }
 
-  private void checkAllowance(Message message, Command command) {
+  private boolean AuthorAllowedToUseCommand(Message message, Command command) {
     Optional<User> author = message.getAuthor();
-    boolean canExecuteCmd = false;
+    boolean isAllowed = false;
     if (author.isPresent()) {
       switch (command.intendedUser()) {
         case ADMIN:
           if (Arrays.stream(admins())
               .anyMatch(admin -> admin.equals(author.get().getTag()))) {
-            canExecuteCmd = true;
+            isAllowed = true;
           }
           break;
         case TRADER:
           if (TraderRegister.getInstance().getMerchant(author.get().getId()).isPresent()) {
-            canExecuteCmd = true;
+            isAllowed = true;
           }
           break;
         case NONE:
           break;
         case ALL:
         default:
-          canExecuteCmd = true;
-      }
-      if (canExecuteCmd) {
-        command.process(message.getContent(),
-            author.map(User::getId).orElseGet(() -> Snowflake.of(0)));
+          isAllowed = true;
       }
     }
+    return isAllowed;
   }
 
   private boolean messageAuthorEqualsSelf(Message message) {

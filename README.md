@@ -4,11 +4,20 @@ _Die SEG_ sells letters to other _traders_ via auctions.
 
 ## running the bot
 
-Minimal required java version is ``jdk 9.+``. 
-To run the bot, simply use 
-``.\gradlew run`` 
-or 
-``.\gradlew run --args="ENTER YOUR SECRET TOKEN"`` 
+### gradle
+Minimal required java version is ``jdk 9.+``.  
+To run the bot, simply use  
+``.\gradlew run``  
+or  
+``.\gradlew run --args="ENTER YOUR SECRET TOKEN"``  
+
+### docker (Thanks to Rasmus Thomsen@Cogitri)
+
+Running the bot is a matter of:
+
+``docker build . -t seg``  
+``docker run -e SECRET_TOKEN="MY_TOKEN" seg``
+
 
 ## Auctions
 _Die SEG_ uses several commands for managing the letter auctions:
@@ -33,7 +42,7 @@ Interaction with _die SEG_ is done via different commands:
     
 ## Configuration
 
-The _Die SEG_ bot can be configured via a ``config.json`` file in root.
+The _Die SEG_ bot can be configured via a ``config.json`` file in root. 
 Available Attributes are:
 
 | Attribute | description | default
