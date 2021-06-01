@@ -50,7 +50,7 @@ public class CommandClear implements Command {
                                       .getMessagesBefore(
                                           Snowflake.of(s))
                                       .map(messageData -> Snowflake.of(messageData.id()))
-                              ).subscribe(logger()::info,
+                              ).subscribe(snowflake1 -> {},
                                   throwable -> logger().error("Error deleting messages.", throwable)));
                         }
                       },

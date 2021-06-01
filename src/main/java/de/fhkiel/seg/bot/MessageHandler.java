@@ -67,7 +67,7 @@ public class MessageHandler {
         Optional<User> author = message.getAuthor();
         command.process(message.getContent(),
                 author.map(User::getId).orElseGet(() -> Snowflake.of(0)));
-      };
+      }
     }
   }
 

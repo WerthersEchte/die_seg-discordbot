@@ -79,6 +79,7 @@ public class Auction {
       public void run() {
         endAuction();
         running = false;
+        timer.cancel();
       }
     }, auctionTime());
   }
